@@ -1,0 +1,28 @@
+version: '3.8'  # Specify the version of the Docker Compose file format
+
+services:
+  webfluxcrud:
+    build: .
+    restart: always
+    ports:
+      - '8080:8080'
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_PORT: 3306
+      MYSQL_DB_NAME: book_db
+      MYSQL_USER: swatantra
+      MYSQL_PASSWORD: password
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: book_db
+      MYSQL_USER: swatantra
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'  # Expose MySQL on the default port
+
